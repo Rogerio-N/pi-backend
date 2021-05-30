@@ -43,5 +43,12 @@ public class UserService{
 		return new UserDTO(userEntity);
 	}
 	
+	public void remove(Integer id) {
+		List<User> entityList = userRepo.findAll();
+		List<UserDTO> dtoList = new ArrayList<UserDTO>();
+		
+		
+	}
+	
 	
 }
