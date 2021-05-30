@@ -36,4 +36,9 @@ public class UserController {
 		
 	}
 	
+	//Testando
+		public List<UserDTO> listador(){
+			return null;
+	}
+	
 }
