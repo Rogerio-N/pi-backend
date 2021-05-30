@@ -44,10 +44,6 @@ public class UserController {
 	public void remover(@RequestParam Integer id) {
 		userServ.remove(id);
 	}
-	
-	//Testando
-	public List<UserDTO> listador(){
-		return null;
-	}
+
 	
 }
