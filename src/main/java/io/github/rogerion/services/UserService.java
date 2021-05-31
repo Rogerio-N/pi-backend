@@ -2,6 +2,7 @@ package io.github.rogerion.services;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -44,11 +45,20 @@ public class UserService{
 	}
 	
 	public void remove(Integer id) {
-		List<User> entityList = userRepo.findAll();
-		List<UserDTO> dtoList = new ArrayList<UserDTO>();
-		
-		
+		userRepo.deleteById(id);
 	}
+	
+//	public void update(User user, Integer id, String email, String name, String password){
+//		Optional<User> userOptional = userRepo.findById(id);
+//		
+//		if(userOptional.isPresent()) {
+//			user.setEmail(email);
+//			user.setNome(name);
+//			user.setPassword(password);
+//			
+//			userRepo.save(user);
+//		}
+//	}
 	
 	
 }
