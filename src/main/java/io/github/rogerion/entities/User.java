@@ -13,7 +13,7 @@ import com.sun.istack.NotNull;
 import io.github.rogerion.dto.UserDTO;
 
 @Entity
-@Table(name="tbUser")
+@Table(name="tb_user")
 public class User implements Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -22,7 +22,7 @@ public class User implements Serializable{
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	@NotNull
-	private String nome;
+	private String name;
 	@NotNull
 	private String email;
 	@NotNull
@@ -32,10 +32,10 @@ public class User implements Serializable{
 		super();
 	}
 
-	public User(Integer id, String nome, String email, String password) {
+	public User(Integer id, String name, String email, String password) {
 		super();
 		this.id = id;
-		this.nome = nome;
+		this.name = name;
 		this.email = email;
 		this.password = password;
 	}
@@ -43,7 +43,7 @@ public class User implements Serializable{
 	public User(UserDTO entity) {
 		super();
 		this.id = entity.getId();
-		this.nome = entity.getNome();
+		this.name = entity.getName();
 		this.email = entity.getEmail();
 		this.password = entity.getPassword();
 	}
@@ -56,12 +56,12 @@ public class User implements Serializable{
 		this.id = id;
 	}
 
-	public String getNome() {
-		return nome;
+	public String getName() {
+		return name;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getEmail() {

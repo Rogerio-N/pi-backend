@@ -37,7 +37,7 @@ public class UserService{
 	
 	public UserDTO insert(UserDTO user) {
 		//Converting a DTO user into a User by constructor method
-		User userEntity = new User(user.getId(),user.getNome(),user.getEmail(),user.getPassword());
+		User userEntity = new User(user.getId(),user.getName(),user.getEmail(),user.getPassword());
 		//Saving this new user in BD
 		userEntity = userRepo.save(userEntity);
 		//Returning to Controller a DTO user
@@ -45,7 +45,13 @@ public class UserService{
 	}
 	
 	public void remove(Integer id) {
-		userRepo.deleteById(id);
+		
+		Optional<User> optUser = userRepo.findById(id);
+		
+		if(optUser.isPresent()) {
+			userRepo.deleteById(id);
+		}		
+		
 	}
 	
 //	public void update(User user, Integer id, String email, String name, String password){
@@ -53,7 +59,7 @@ public class UserService{
 //		
 //		if(userOptional.isPresent()) {
 //			user.setEmail(email);
-//			user.setNome(name);
+//			
 //			user.setPassword(password);
 //			
 //			userRepo.save(user);
