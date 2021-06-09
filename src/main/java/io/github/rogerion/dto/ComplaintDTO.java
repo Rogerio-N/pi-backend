@@ -1,62 +1,32 @@
-package io.github.rogerion.entities;
+package io.github.rogerion.dto;
 
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import io.github.rogerion.entities.Complaint;
+import io.github.rogerion.entities.Themes;
 
-import com.sun.istack.NotNull;
-
-import io.github.rogerion.dto.ComplaintDTO;
-
-
-@Entity
-@Table(name="tb_complaint")
-public class Complaint implements Serializable{
+public class ComplaintDTO implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
-	@NotNull
 	private String protocol;
-	
-	@OneToOne
-	@JoinColumn(name="themes")
 	private Themes themes;
-	
-	@NotNull
 	private String CEP;
-	
-	@NotNull
 	private String status;
-	
 	private String descricao;
-	
-	@NotNull
 	private Integer numero;
-	
-	@NotNull
 	private String endereco;
-	
-	@NotNull
 	private Date dataEnvio;
 	
 	//Adicionar foto
 	
-	public Complaint() {
+	public ComplaintDTO() {
 		super();
 	}
 	
-	public Complaint(Integer id, String protocol, Themes themes, String CEP, String status, String descricao,Integer numero, String endereco, Date dataEnvio) {
+	public ComplaintDTO(Integer id, String protocol, Themes themes, String CEP, String status, String descricao,Integer numero, String endereco, Date dataEnvio) {
 		super();
 		this.id = id;
 		this.protocol = protocol;
@@ -69,7 +39,8 @@ public class Complaint implements Serializable{
 		this.dataEnvio = dataEnvio;
 	}
 
-	public Complaint(ComplaintDTO entity) {
+	public ComplaintDTO(Complaint entity) {
+		super();
 		this.id = entity.getId();
 		this.protocol = entity.getProtocol();
 		this.themes = entity.getThemes();
@@ -109,8 +80,8 @@ public class Complaint implements Serializable{
 		return CEP;
 	}
 
-	public void setCEP(String CEP) {
-		this.CEP = CEP;
+	public void setCEP(String cEP) {
+		CEP = cEP;
 	}
 
 	public String getStatus() {
@@ -169,7 +140,7 @@ public class Complaint implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Complaint other = (Complaint) obj;
+		ComplaintDTO other = (ComplaintDTO) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;

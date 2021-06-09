@@ -16,6 +16,11 @@ public class ThemesDTO implements Serializable{
 		super();
 	}
 	
+	public ThemesDTO(Integer id) {
+		super();
+		this.id = id;
+	}
+	
 	public ThemesDTO(Integer id, String name, String photo) {
 		super();
 		this.id = id;

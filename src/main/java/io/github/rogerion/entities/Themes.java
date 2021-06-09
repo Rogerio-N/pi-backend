@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.sun.istack.NotNull;
@@ -13,7 +14,7 @@ import com.sun.istack.NotNull;
 import io.github.rogerion.dto.ThemesDTO;
 
 @Entity
-@Table(name="tbThemes")
+@Table(name="tb_themes")
 public class Themes implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
@@ -25,8 +26,16 @@ public class Themes implements Serializable{
 	@NotNull
 	private String photo;
 	
+	@OneToOne(mappedBy = "themes")
+	private Complaint complaint;
+	
 	public Themes() {
 		super();
+	}
+	
+	public Themes(Integer id) {
+		super();
+		this.id = id;
 	}
 	
 	public Themes(Integer id, String nome, String photo) {
