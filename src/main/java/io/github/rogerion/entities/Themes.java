@@ -1,12 +1,13 @@
 package io.github.rogerion.entities;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.sun.istack.NotNull;
@@ -26,8 +27,8 @@ public class Themes implements Serializable{
 	@NotNull
 	private String photo;
 	
-	@OneToOne(mappedBy = "themes")
-	private Complaint complaint;
+	@OneToMany(mappedBy = "themes")
+	private List <Complaint> complaint;
 	
 	public Themes() {
 		super();

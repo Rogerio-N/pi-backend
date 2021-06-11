@@ -5,6 +5,7 @@ import java.util.Date;
 
 import io.github.rogerion.entities.Complaint;
 import io.github.rogerion.entities.Themes;
+import io.github.rogerion.entities.User;
 
 public class ComplaintDTO implements Serializable{
 
@@ -19,6 +20,8 @@ public class ComplaintDTO implements Serializable{
 	private Integer numero;
 	private String endereco;
 	private Date dataEnvio;
+	private Date dataFim;
+	private User user;
 	
 	//Adicionar foto
 	
@@ -26,18 +29,24 @@ public class ComplaintDTO implements Serializable{
 		super();
 	}
 	
-	public ComplaintDTO(Integer id, String protocol, Themes themes, String CEP, String status, String descricao,Integer numero, String endereco, Date dataEnvio) {
+
+	public ComplaintDTO(Integer id, String protocol, Themes themes, String cEP, String status, String descricao,
+			Integer numero, String endereco, Date dataEnvio, Date dataFim,User user) {
 		super();
 		this.id = id;
 		this.protocol = protocol;
 		this.themes = themes;
-		this.CEP = CEP;
+		this.CEP = cEP;
 		this.status = status;
 		this.descricao = descricao;
 		this.numero = numero;
 		this.endereco = endereco;
 		this.dataEnvio = dataEnvio;
+		this.dataFim = dataFim;
+		this.user = user;
 	}
+
+
 
 	public ComplaintDTO(Complaint entity) {
 		super();
@@ -50,6 +59,8 @@ public class ComplaintDTO implements Serializable{
 		this.numero = entity.getNumero();
 		this.endereco = entity.getEndereco();
 		this.dataEnvio = entity.getDataEnvio();
+		this.dataFim = entity.getDataFim();
+		this.user = entity.getUser();
 	}
 	
 	public Integer getId() {
@@ -122,6 +133,22 @@ public class ComplaintDTO implements Serializable{
 
 	public void setDataEnvio(Date dataEnvio) {
 		this.dataEnvio = dataEnvio;
+	}
+	
+	public Date getDataFim() {
+		return dataFim;
+	}
+
+	public void setDataFim(Date dataFim) {
+		this.dataFim = dataFim;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	@Override

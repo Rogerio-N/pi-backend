@@ -8,7 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.sun.istack.NotNull;
@@ -29,7 +29,7 @@ public class Complaint implements Serializable{
 	@NotNull
 	private String protocol;
 	
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name="themes")
 	private Themes themes;
 	
@@ -50,24 +50,37 @@ public class Complaint implements Serializable{
 	@NotNull
 	private Date dataEnvio;
 	
+	private Date dataFim;
+	
+	@ManyToOne
+	@JoinColumn(name="user_id")
+	private User user;
+	
 	//Adicionar foto
 	
 	public Complaint() {
 		super();
 	}
 	
-	public Complaint(Integer id, String protocol, Themes themes, String CEP, String status, String descricao,Integer numero, String endereco, Date dataEnvio) {
+	
+
+	public Complaint(Integer id, String protocol, Themes themes, String cEP, String status, String descricao,
+			Integer numero, String endereco, Date dataEnvio, Date dataFim, User user) {
 		super();
 		this.id = id;
 		this.protocol = protocol;
 		this.themes = themes;
-		this.CEP = CEP;
+		this.CEP = cEP;
 		this.status = status;
 		this.descricao = descricao;
 		this.numero = numero;
 		this.endereco = endereco;
 		this.dataEnvio = dataEnvio;
+		this.dataFim = dataFim;
+		this.user = user;
 	}
+
+
 
 	public Complaint(ComplaintDTO entity) {
 		this.id = entity.getId();
@@ -79,6 +92,8 @@ public class Complaint implements Serializable{
 		this.numero = entity.getNumero();
 		this.endereco = entity.getEndereco();
 		this.dataEnvio = entity.getDataEnvio();
+		this.dataFim = entity.getDataFim();
+		this.user = entity.getUser();
 	}
 	
 	public Integer getId() {
@@ -152,6 +167,24 @@ public class Complaint implements Serializable{
 	public void setDataEnvio(Date dataEnvio) {
 		this.dataEnvio = dataEnvio;
 	}
+	
+	public Date getDataFim() {
+		return dataFim;
+	}
+
+	public void setDataFim(Date dataFim) {
+		this.dataFim = dataFim;
+	}
+	
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+
 
 	@Override
 	public int hashCode() {

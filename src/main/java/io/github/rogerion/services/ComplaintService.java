@@ -35,7 +35,7 @@ public class ComplaintService {
 	}
 	
 	public ComplaintDTO insert(ComplaintDTO c) {
-		Complaint complaintEntity = new Complaint(c.getId(),c.getProtocol(),c.getThemes(),c.getCEP(),c.getStatus(),c.getDescricao(),c.getNumero(),c.getEndereco(),c.getDataEnvio());
+		Complaint complaintEntity = new Complaint(c.getId(),c.getProtocol(),c.getThemes(),c.getCEP(),c.getStatus(),c.getDescricao(),c.getNumero(),c.getEndereco(),c.getDataEnvio(),c.getDataFim(),c.getUser());
 		complaintEntity = repo.save(complaintEntity);
 		return new ComplaintDTO(complaintEntity);
 	}

@@ -29,12 +29,16 @@ public class User implements Serializable{
 	private String email;
 	@NotNull
 	private String password;
-	
-	//@OneToMany(mappedBy="user")
-	//private List<Complaint> complaint;
+	@OneToMany(mappedBy = "user")
+	private List<Complaint> complaint;
 	
 	public User() {
 		super();
+	}
+	
+	public User(Integer id) {
+		super();
+		this.id = id;
 	}
 
 	public User(Integer id, String name, String email, String password) {
