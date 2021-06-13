@@ -8,11 +8,13 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.github.rogerion.dto.UserDTO;
+import io.github.rogerion.entities.User;
 import io.github.rogerion.services.UserService;
 
 @RestController
@@ -43,4 +45,9 @@ public class UserController {
 		userServ.remove(id);
 	}
 	
+	@PutMapping(value="/{id}")
+	public ResponseEntity<User> update (@RequestBody User user, @PathVariable Integer id){
+		user = userServ.update(user, id, user.getEmail(), user.getName(), user.getPassword());
+		return ResponseEntity.ok().body(user);
+	}
 }

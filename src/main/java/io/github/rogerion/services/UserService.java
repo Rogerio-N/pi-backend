@@ -54,17 +54,25 @@ public class UserService{
 		
 	}
 	
-//	public void update(User user, Integer id, String email, String name, String password){
-//		Optional<User> userOptional = userRepo.findById(id);
-//		
-//		if(userOptional.isPresent()) {
-//			user.setEmail(email);
-//			
-//			user.setPassword(password);
-//			
-//			userRepo.save(user);
-//		}
-//	}
+	
+	public User update(User user, Integer id, String email, String name, String password){
+		Optional<User> userOptional = userRepo.findById(id);
+		
+		if(userOptional.isPresent()) {
+			user.setId(id);
+			
+			user.setName(name);
+			
+			user.setEmail(email);
+			
+			user.setPassword(password);
+			
+			return userRepo.save(user);
+		}
+		
+		return null;
+		
+	}
 	
 	
 }
