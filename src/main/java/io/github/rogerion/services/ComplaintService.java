@@ -40,4 +40,19 @@ public class ComplaintService {
 		return new ComplaintDTO(complaintEntity);
 	}
 	
+	public List<ComplaintDTO> findByProtocol(String e){
+		List<Complaint> list = repo.findByProtocol(e);
+		List<ComplaintDTO> listDTO = new ArrayList<ComplaintDTO>();
+		
+		for(int i = 0; i<list.size();i++) {
+			
+			//Converting a Entity User into a UserDTO with UserDTO constructor
+			ComplaintDTO temp = new ComplaintDTO(list.get(i));
+			listDTO.add(temp);
+			
+		}
+		
+		return listDTO;
+	}
+	
 }
