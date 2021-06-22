@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import io.github.rogerion.dto.ComplaintDTO;
 import io.github.rogerion.services.ComplaintService;
@@ -30,9 +31,9 @@ public class ComplaintController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<ComplaintDTO> insert(@RequestBody ComplaintDTO complaint){
+	public ResponseEntity<ComplaintDTO> insert(@RequestBody ComplaintDTO complaint, MultipartFile image){
 		
-		complaint = service.insert(complaint);
+		complaint = service.insert(complaint,image);
 		return ResponseEntity.ok().body(complaint);
 		
 	}
