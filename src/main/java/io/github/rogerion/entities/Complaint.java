@@ -56,15 +56,16 @@ public class Complaint implements Serializable{
 	@JoinColumn(name="user_id")
 	private User user;
 	
-	@NotNull
-	private String linkImage;
+	//Adicionar foto
 	
 	public Complaint() {
 		super();
 	}
 	
+	
+
 	public Complaint(Integer id, String protocol, Themes themes, String cEP, String status, String descricao,
-			Integer numero, String endereco, Date dataEnvio, Date dataFim, User user, String linkImage) {
+			Integer numero, String endereco, Date dataEnvio, Date dataFim, User user) {
 		super();
 		this.id = id;
 		this.protocol = protocol;
@@ -77,8 +78,9 @@ public class Complaint implements Serializable{
 		this.dataEnvio = dataEnvio;
 		this.dataFim = dataFim;
 		this.user = user;
-		this.linkImage = linkImage;
 	}
+
+
 
 	public Complaint(ComplaintDTO entity) {
 		this.id = entity.getId();
@@ -92,7 +94,6 @@ public class Complaint implements Serializable{
 		this.dataEnvio = entity.getDataEnvio();
 		this.dataFim = entity.getDataFim();
 		this.user = entity.getUser();
-		this.linkImage = entity.getLinkImage();
 	}
 	
 	public Integer getId() {
@@ -183,13 +184,7 @@ public class Complaint implements Serializable{
 		this.user = user;
 	}
 
-	public String getLinkImage() {
-		return linkImage;
-	}
 
-	public void setLinkImage(String linkImage) {
-		this.linkImage = linkImage;
-	}
 
 	@Override
 	public int hashCode() {
