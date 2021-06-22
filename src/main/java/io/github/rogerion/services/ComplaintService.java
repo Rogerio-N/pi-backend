@@ -6,16 +6,21 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import io.github.rogerion.dto.ComplaintDTO;
 import io.github.rogerion.entities.Complaint;
 import io.github.rogerion.repositories.ComplaintRepository;
+import io.github.rogerion.utilities.AcessaDisco;
 
 @Service
 public class ComplaintService {
 
 	@Autowired
 	public ComplaintRepository repo;
+	
+	@Autowired
+	private AcessaDisco acesso;
 	
 	@Transactional(readOnly = true)
 	public List<ComplaintDTO> findAll(){
@@ -34,9 +39,10 @@ public class ComplaintService {
 		return dtoList;
 	}
 	
-	public ComplaintDTO insert(ComplaintDTO c) {
-		Complaint complaintEntity = new Complaint(c.getId(),c.getProtocol(),c.getThemes(),c.getCEP(),c.getStatus(),c.getDescricao(),c.getNumero(),c.getEndereco(),c.getDataEnvio(),c.getDataFim(),c.getUser());
+	public ComplaintDTO insert(ComplaintDTO c, MultipartFile image) {
+		Complaint complaintEntity = new Complaint(c.getId(),c.getProtocol(),c.getThemes(),c.getCEP(),c.getStatus(),c.getDescricao(),c.getNumero(),c.getEndereco(),c.getDataEnvio(),c.getDataFim(),c.getUser(),c.getLinkImage());
 		complaintEntity = repo.save(complaintEntity);
+		acesso.salvar("complaint-image", image);
 		return new ComplaintDTO(complaintEntity);
 	}
 	
