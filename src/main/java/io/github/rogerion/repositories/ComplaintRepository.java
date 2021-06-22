@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import io.github.rogerion.entities.Complaint;
+import io.github.rogerion.entities.User;
 
 public interface ComplaintRepository extends JpaRepository<Complaint, Integer>{
 

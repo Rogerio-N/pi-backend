@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import io.github.rogerion.dto.ComplaintDTO;
 import io.github.rogerion.entities.Complaint;
+import io.github.rogerion.entities.User;
 import io.github.rogerion.repositories.ComplaintRepository;
 
 @Service
@@ -33,6 +34,7 @@ public class ComplaintService {
 		
 		return dtoList;
 	}
+
 	
 	public ComplaintDTO insert(ComplaintDTO c) {
 		Complaint complaintEntity = new Complaint(c.getId(),c.getProtocol(),c.getThemes(),c.getCEP(),c.getStatus(),c.getDescricao(),c.getNumero(),c.getEndereco(),c.getDataEnvio(),c.getDataFim(),c.getUser());
@@ -46,7 +48,6 @@ public class ComplaintService {
 		
 		for(int i = 0; i<list.size();i++) {
 			
-			//Converting a Entity User into a UserDTO with UserDTO constructor
 			ComplaintDTO temp = new ComplaintDTO(list.get(i));
 			listDTO.add(temp);
 			
