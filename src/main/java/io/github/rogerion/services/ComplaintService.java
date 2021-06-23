@@ -40,10 +40,9 @@ public class ComplaintService {
 	}
 
 	
-	public ComplaintDTO insert(ComplaintDTO c, MultipartFile imagem) {
+	public ComplaintDTO insert(ComplaintDTO c) {
 		Complaint complaintEntity = new Complaint(c.getId(),c.getProtocol(),c.getThemes(),c.getCEP(),c.getStatus(),c.getDescricao(),c.getNumero(),c.getEndereco(),c.getDataEnvio(),c.getDataFim(),c.getUser(),c.getImageUrl());
 		complaintEntity = repo.save(complaintEntity);
-		acesso.salvar("complaint-images", imagem);
 		return new ComplaintDTO(complaintEntity);
 	}
 	
