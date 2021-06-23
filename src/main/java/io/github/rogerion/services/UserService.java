@@ -50,7 +50,7 @@ public class UserService{
 		
 		if(optUser.isPresent()) {
 			userRepo.deleteById(id);
-		}		
+		}
 		
 	}
 	

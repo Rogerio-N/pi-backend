@@ -22,6 +22,7 @@ public class ComplaintDTO implements Serializable{
 	private Date dataEnvio;
 	private Date dataFim;
 	private User user;
+	private String imageUrl;
 	
 	//Adicionar foto
 	
@@ -31,7 +32,7 @@ public class ComplaintDTO implements Serializable{
 	
 
 	public ComplaintDTO(Integer id, String protocol, Themes themes, String cEP, String status, String descricao,
-			Integer numero, String endereco, Date dataEnvio, Date dataFim,User user) {
+			Integer numero, String endereco, Date dataEnvio, Date dataFim,User user, String imageUrl) {
 		super();
 		this.id = id;
 		this.protocol = protocol;
@@ -44,6 +45,7 @@ public class ComplaintDTO implements Serializable{
 		this.dataEnvio = dataEnvio;
 		this.dataFim = dataFim;
 		this.user = user;
+		this.imageUrl = imageUrl;
 	}
 
 
@@ -61,6 +63,7 @@ public class ComplaintDTO implements Serializable{
 		this.dataEnvio = entity.getDataEnvio();
 		this.dataFim = entity.getDataFim();
 		this.user = entity.getUser();
+		this.imageUrl = entity.getImageUrl();
 	}
 	
 	public Integer getId() {
@@ -149,6 +152,14 @@ public class ComplaintDTO implements Serializable{
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+	
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
 	}
 
 	@Override
