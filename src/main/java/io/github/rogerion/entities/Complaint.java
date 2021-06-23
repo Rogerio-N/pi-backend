@@ -56,7 +56,6 @@ public class Complaint implements Serializable{
 	@JoinColumn(name="user_id")
 	private User user;
 	
-	@NotNull
 	private String imageUrl;
 	
 	//Adicionar foto
