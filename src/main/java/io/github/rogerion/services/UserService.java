@@ -73,6 +73,16 @@ public class UserService{
 		return null;
 		
 	}
+
+	public Optional<User> findUserById(Integer id){
+		Optional<User> userOptional = userRepo.findById(id);
+
+		if(userOptional.isPresent()){
+			return userRepo.findById(id);
+		}else{
+			return null;
+		}
+	}
 	
 	
 }

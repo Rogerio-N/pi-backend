@@ -2,25 +2,25 @@ package io.github.rogerion.services;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
+import io.github.rogerion.entities.User;
+import io.github.rogerion.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 
 import io.github.rogerion.dto.ComplaintDTO;
 import io.github.rogerion.entities.Complaint;
 import io.github.rogerion.repositories.ComplaintRepository;
-import io.github.rogerion.utilities.AcessaDisco;
 
 @Service
 public class ComplaintService {
 
 	@Autowired
 	public ComplaintRepository repo;
-	
-	@Autowired
-	public AcessaDisco acesso;
+
+	public UserRepository userRepo;
 	
 	@Transactional(readOnly = true)
 	public List<ComplaintDTO> findAll(){
@@ -38,26 +38,41 @@ public class ComplaintService {
 		
 		return dtoList;
 	}
-
 	
 	public ComplaintDTO insert(ComplaintDTO c) {
-		Complaint complaintEntity = new Complaint(c.getId(),c.getProtocol(),c.getThemes(),c.getCEP(),c.getStatus(),c.getDescricao(),c.getNumero(),c.getEndereco(),c.getDataEnvio(),c.getDataFim(),c.getUser(),c.getImageUrl());
+		Complaint complaintEntity = new Complaint(c.getId(),c.getThemes(),c.getCEP(),
+				c.getStatus(),c.getDescricao(),c.getNumero(),c.getEndereco(),
+				c.getDataEnvio(),c.getDataFim(),c.getUser(),c.getImageUrl());
 		complaintEntity = repo.save(complaintEntity);
 		return new ComplaintDTO(complaintEntity);
 	}
-	
-	public List<ComplaintDTO> findByProtocol(String e){
-		List<Complaint> list = repo.findByProtocol(e);
-		List<ComplaintDTO> listDTO = new ArrayList<ComplaintDTO>();
-		
-		for(int i = 0; i<list.size();i++) {
-			
-			ComplaintDTO temp = new ComplaintDTO(list.get(i));
-			listDTO.add(temp);
-			
+
+	public Optional<Complaint> findById(Integer id){
+		Optional<Complaint> complaintOptional = repo.findById(id);
+
+		if(complaintOptional.isPresent()){
+			return complaintOptional;
 		}
-		
-		return listDTO;
+		return null;
 	}
-	
+
+	public Optional<Complaint> findUserComplaint(Integer idUser, Integer idComplaint){
+
+		Optional<User> userOptional = userRepo.findById(1);
+		Optional<Complaint> complaintOptional = repo.findById(idComplaint);
+
+		System.out.println(userOptional);
+		System.out.println(complaintOptional);
+
+		if(userOptional.isPresent() && complaintOptional.isPresent()){
+			Integer complaintUserId = complaintOptional.get().getUser().getId();
+			Integer searchUserId = userOptional.get().getId();
+			if(complaintUserId.equals(searchUserId)){
+				return complaintOptional;
+			}
+
+		}
+
+		return Optional.empty();
+	}
 }

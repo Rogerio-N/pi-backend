@@ -18,7 +18,7 @@ import io.github.rogerion.entities.User;
 import io.github.rogerion.services.UserService;
 
 @RestController
-@RequestMapping(value="/users")
+@RequestMapping(value="/api/v2/users")
 public class UserController {
 	
 	@Autowired
