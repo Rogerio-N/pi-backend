@@ -56,23 +56,13 @@ public class ComplaintService {
 		return null;
 	}
 
-	public Optional<Complaint> findUserComplaint(Integer idUser, Integer idComplaint){
+	public List<Complaint> findUserComplaint(String id){
+		List<Complaint> listUserComplaint = repo.findUserComplaint(id);
+		return listUserComplaint;
+	}
 
-		Optional<User> userOptional = userRepo.findById(1);
-		Optional<Complaint> complaintOptional = repo.findById(idComplaint);
-
-		System.out.println(userOptional);
-		System.out.println(complaintOptional);
-
-		if(userOptional.isPresent() && complaintOptional.isPresent()){
-			Integer complaintUserId = complaintOptional.get().getUser().getId();
-			Integer searchUserId = userOptional.get().getId();
-			if(complaintUserId.equals(searchUserId)){
-				return complaintOptional;
-			}
-
-		}
-
-		return Optional.empty();
+	public Complaint findSpecificUserComplaint(String userId, String complaintId){
+		Complaint complaint = repo.findSpecificUserComplaint(userId,complaintId);
+		return complaint;
 	}
 }

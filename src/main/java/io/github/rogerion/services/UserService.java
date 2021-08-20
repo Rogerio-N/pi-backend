@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,7 +15,9 @@ import io.github.rogerion.repositories.UserRepository;
 
 @Service
 public class UserService{
-	
+
+	BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder(10);
+
 	@Autowired
 	public UserRepository userRepo;
 	
@@ -37,13 +40,14 @@ public class UserService{
 	
 	public UserDTO insert(UserDTO user) {
 		//Converting a DTO user into a User by constructor method
-		User userEntity = new User(user.getId(),user.getName(),user.getEmail(),user.getPassword());
+		String userPasswordHash = bcrypt.encode(user.getPassword());
+		User userEntity = new User(user.getId(),user.getName(),user.getEmail(),userPasswordHash);
 		//Saving this new user in BD
 		userEntity = userRepo.save(userEntity);
 		//Returning to Controller a DTO user
 		return new UserDTO(userEntity);
 	}
-	
+
 	public void remove(Integer id) {
 		
 		Optional<User> optUser = userRepo.findById(id);
@@ -53,7 +57,6 @@ public class UserService{
 		}
 		
 	}
-	
 	
 	public User update(User user, Integer id, String email, String name, String password){
 		Optional<User> userOptional = userRepo.findById(id);
@@ -80,9 +83,17 @@ public class UserService{
 		if(userOptional.isPresent()){
 			return userRepo.findById(id);
 		}else{
-			return null;
+			return Optional.empty();
 		}
 	}
-	
-	
+
+	public User login(String email, String password){
+		User user =  userRepo.findByEmail(email);
+		boolean isPasswordValid = bcrypt.matches(password,user.getPassword());
+		if(isPasswordValid){
+			return user;
+		}
+		return null;
+	}
+
 }

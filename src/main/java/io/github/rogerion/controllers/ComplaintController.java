@@ -7,6 +7,7 @@ import io.github.rogerion.entities.Complaint;
 import io.github.rogerion.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import io.github.rogerion.dto.ComplaintDTO;
@@ -41,8 +42,13 @@ public class ComplaintController {
 	}
 
 	@GetMapping(value="find/userComplaint")
-	public ResponseEntity<Optional<Complaint>> findComplaintByUserId(@RequestParam (name="user_id") Integer idUser,User user, @RequestParam(name = "complaint_id") Integer idComplaint){
-		return ResponseEntity.ok().body(service.findUserComplaint(idUser,idComplaint));
+	public ResponseEntity<List<Complaint>> findComplaintByUserId(@RequestParam (name="user_id") String idUser){
+		return ResponseEntity.ok().body(service.findUserComplaint(idUser));
+	}
+
+	@GetMapping(value="find/userSpecificComplaint")
+	public ResponseEntity<Complaint> findComplaintByUserId(@RequestParam (name="user_id") String idUser,@RequestParam ("complaint_id") String idComplaint){
+		return ResponseEntity.ok().body(service.findSpecificUserComplaint(idUser,idComplaint));
 	}
 	
 }

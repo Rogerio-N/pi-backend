@@ -12,6 +12,10 @@ import io.github.rogerion.dto.ComplaintDTO;
 
 @Entity
 @Table(name="tb_complaint")
+@NamedQuery(name="findUserComplaint",
+	query = "SELECT c FROM Complaint c WHERE  c.user_id = CAST(:userId as int)")
+@NamedQuery(name="findSpecificUserComplaint",
+	query = "SELECT c FROM Complaint c WHERE  c.user_id = CAST(:userId as int) AND c.id = CAST(:complaintId as int)")
 public class Complaint implements Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -46,7 +50,7 @@ public class Complaint implements Serializable{
 	
 	@ManyToOne
 	@JoinColumn(name="user_id")
-	private User user;
+	private User user_id;
 
 	@Column(nullable = false)
 	private String imageUrl;
@@ -71,7 +75,7 @@ public class Complaint implements Serializable{
 		this.endereco = endereco;
 		this.dataEnvio = dataEnvio;
 		this.dataFim = dataFim;
-		this.user = user;
+		this.user_id = user;
 		this.imageUrl = imageUrl;
 	}
 
@@ -87,7 +91,7 @@ public class Complaint implements Serializable{
 		this.endereco = entity.getEndereco();
 		this.dataEnvio = entity.getDataEnvio();
 		this.dataFim = entity.getDataFim();
-		this.user = entity.getUser();
+		this.user_id = entity.getUser();
 		this.imageUrl = entity.getImageUrl();
 	}
 	
@@ -164,11 +168,11 @@ public class Complaint implements Serializable{
 	}
 	
 	public User getUser() {
-		return user;
+		return user_id;
 	}
 
 	public void setUser(User user) {
-		this.user = user;
+		this.user_id = user;
 	}
 
 	public String getImageUrl() {

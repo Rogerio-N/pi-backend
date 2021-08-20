@@ -11,6 +11,8 @@ import io.github.rogerion.dto.UserDTO;
 
 @Entity
 @Table(name="tb_user")
+@NamedQuery(name="findByEmail",
+	query = "SELECT u FROM User u where u.email = ?1")
 public class User implements Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -24,7 +26,7 @@ public class User implements Serializable{
 	private String email;
 	@Column(nullable = false)
 	private String password;
-	@OneToMany(mappedBy = "user")
+	@OneToMany(mappedBy = "user_id")
 	private List<Complaint> complaint;
 	
 	public User() {

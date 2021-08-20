@@ -3,6 +3,7 @@ package io.github.rogerion.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -48,6 +49,12 @@ public class UserController {
 	@PutMapping(value="/{id}")
 	public ResponseEntity<User> update (@RequestBody User user, @PathVariable Integer id){
 		user = userServ.update(user, id, user.getEmail(), user.getName(), user.getPassword());
+		return ResponseEntity.ok().body(user);
+	}
+
+	@GetMapping(value="/login")
+	public ResponseEntity<User> login(@Param (value= "email") String email, @Param (value= "password") String password){
+		User user = userServ.login(email,password);
 		return ResponseEntity.ok().body(user);
 	}
 }
