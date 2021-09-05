@@ -53,8 +53,8 @@ public class UserController {
 		return ResponseEntity.ok().body(user);
 	}
 
-	@GetMapping(value="/login")
-	public ResponseEntity<Optional<User>> login(@Param (value= "email") String email){
+	@GetMapping(value="/find")
+	public ResponseEntity<Optional<User>> findUserByEmail(@Param (value= "email") String email){
 		Optional<User> user = userServ.findUserByEmail(email);
 		return ResponseEntity.ok().body(user);
 	}
