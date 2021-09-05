@@ -87,10 +87,9 @@ public class UserService{
 		}
 	}
 
-	public User login(String email, String password){
-		User user =  userRepo.findByEmail(email);
-		boolean isPasswordValid = bcrypt.matches(password,user.getPassword());
-		if(isPasswordValid){
+	public Optional<User> findUserByEmail(String email){
+		Optional<User> user =  userRepo.findByEmail(email);
+		if(user.isPresent()){
 			return user;
 		}
 		return null;
