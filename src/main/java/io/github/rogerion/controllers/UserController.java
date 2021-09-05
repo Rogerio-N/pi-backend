@@ -1,6 +1,7 @@
 package io.github.rogerion.controllers;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
@@ -53,8 +54,8 @@ public class UserController {
 	}
 
 	@GetMapping(value="/login")
-	public ResponseEntity<User> login(@Param (value= "email") String email, @Param (value= "password") String password){
-		User user = userServ.login(email,password);
+	public ResponseEntity<Optional<User>> login(@Param (value= "email") String email){
+		Optional<User> user = userServ.findUserByEmail(email);
 		return ResponseEntity.ok().body(user);
 	}
 }
