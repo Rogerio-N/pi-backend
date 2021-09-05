@@ -18,6 +18,7 @@ public class ThemesController {
 	private ThemesService service;
 	
 	@GetMapping
+	@CrossOrigin(origins = {"http://localhost:8080","http://localhost:5500"})
 	public ResponseEntity<List<ThemesDTO>> findAll(){
 		List<ThemesDTO> finalList = service.findAll();
 		return ResponseEntity.ok().body(finalList);
