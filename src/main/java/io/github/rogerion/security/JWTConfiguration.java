@@ -41,6 +41,7 @@ public class JWTConfiguration extends WebSecurityConfigurerAdapter {
         http.csrf().disable().authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/login").permitAll()
                 .antMatchers(HttpMethod.GET,"/api/v2/themes").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/v2/users").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .addFilter(new JWTAuthenticationFilter(authenticationManager()))

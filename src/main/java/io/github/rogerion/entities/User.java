@@ -2,6 +2,7 @@ package io.github.rogerion.entities;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.SortedSet;
 
 import javax.persistence.*;
 
@@ -26,7 +27,8 @@ public class User implements Serializable{
 	private String email;
 	@Column(nullable = false)
 	private String password;
-	@OneToMany(mappedBy = "user_id")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user_id")
+	@OrderBy("id ASC")
 	private List<Complaint> complaint;
 	
 	public User() {
