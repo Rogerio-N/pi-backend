@@ -67,7 +67,9 @@ public class UserService{
 			user.setName(name);
 			
 			user.setEmail(email);
-			
+
+			password = bcrypt.encode(password);
+
 			user.setPassword(password);
 			
 			return userRepo.save(user);
