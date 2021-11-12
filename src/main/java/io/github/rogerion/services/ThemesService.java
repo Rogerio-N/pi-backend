@@ -33,5 +33,11 @@ public class ThemesService {
 		
 		return themesDTO;
 	}
-	
+
+	public ThemesDTO insert(ThemesDTO t){
+		Themes themeEntity = new Themes(t.getId(),t.getName(),t.getPhoto());
+		themeEntity = repo.save(themeEntity);
+		return new ThemesDTO(themeEntity);
+	}
+
 }

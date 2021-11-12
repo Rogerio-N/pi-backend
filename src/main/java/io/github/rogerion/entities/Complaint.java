@@ -3,13 +3,7 @@ package io.github.rogerion.entities;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import com.sun.istack.NotNull;
 
@@ -18,6 +12,10 @@ import io.github.rogerion.dto.ComplaintDTO;
 
 @Entity
 @Table(name="tb_complaint")
+@NamedQuery(name="findUserComplaint",
+	query = "SELECT c FROM Complaint c WHERE  c.user_id = CAST(:userId as int)")
+@NamedQuery(name="findSpecificUserComplaint",
+	query = "SELECT c FROM Complaint c WHERE  c.user_id = CAST(:userId as int) AND c.id = CAST(:complaintId as int)")
 public class Complaint implements Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -25,52 +23,50 @@ public class Complaint implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
-	@NotNull
-	private String protocol;
-	
+
 	@ManyToOne
 	@JoinColumn(name="themes")
 	private Themes themes;
 	
-	@NotNull
+	@Column(nullable = false,length = 10)
 	private String CEP;
 	
-	@NotNull
+	@Column(nullable = false)
 	private String status;
 	
 	private String descricao;
-	
-	@NotNull
+
+	//Numero do endereco
+	@Column(nullable = false, length = 6)
 	private Integer numero;
-	
-	@NotNull
+
+	@Column(nullable = false)
 	private String endereco;
 	
-	@NotNull
+	@Column(nullable = false)
 	private Date dataEnvio;
 	
 	private Date dataFim;
 	
 	@ManyToOne
 	@JoinColumn(name="user_id")
-	private User user;
-	
+	private User user_id;
+
+	@Column(nullable = false)
 	private String imageUrl;
-	
-	//Adicionar foto
 	
 	public Complaint() {
 		super();
 	}
 	
-	
+	public Complaint(Integer id){
+		this.id = id;
+	}
 
-	public Complaint(Integer id, String protocol, Themes themes, String cEP, String status, String descricao,
+	public Complaint(Integer id, Themes themes, String cEP, String status, String descricao,
 			Integer numero, String endereco, Date dataEnvio, Date dataFim, User user, String imageUrl) {
 		super();
 		this.id = id;
-		this.protocol = protocol;
 		this.themes = themes;
 		this.CEP = cEP;
 		this.status = status;
@@ -79,7 +75,7 @@ public class Complaint implements Serializable{
 		this.endereco = endereco;
 		this.dataEnvio = dataEnvio;
 		this.dataFim = dataFim;
-		this.user = user;
+		this.user_id = user;
 		this.imageUrl = imageUrl;
 	}
 
@@ -87,7 +83,6 @@ public class Complaint implements Serializable{
 
 	public Complaint(ComplaintDTO entity) {
 		this.id = entity.getId();
-		this.protocol = entity.getProtocol();
 		this.themes = entity.getThemes();
 		this.CEP = entity.getCEP();
 		this.status = entity.getStatus();
@@ -96,7 +91,7 @@ public class Complaint implements Serializable{
 		this.endereco = entity.getEndereco();
 		this.dataEnvio = entity.getDataEnvio();
 		this.dataFim = entity.getDataFim();
-		this.user = entity.getUser();
+		this.user_id = entity.getUser();
 		this.imageUrl = entity.getImageUrl();
 	}
 	
@@ -106,14 +101,6 @@ public class Complaint implements Serializable{
 
 	public void setId(Integer id) {
 		this.id = id;
-	}
-
-	public String getProtocol() {
-		return protocol;
-	}
-
-	public void setProtocol(String protocol) {
-		this.protocol = protocol;
 	}
 
 	public Themes getThemes() {
@@ -181,11 +168,11 @@ public class Complaint implements Serializable{
 	}
 	
 	public User getUser() {
-		return user;
+		return user_id;
 	}
 
 	public void setUser(User user) {
-		this.user = user;
+		this.user_id = user;
 	}
 
 	public String getImageUrl() {

@@ -12,7 +12,6 @@ public class ComplaintDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private Integer id;
-	private String protocol;
 	private Themes themes;
 	private String CEP;
 	private String status;
@@ -31,11 +30,10 @@ public class ComplaintDTO implements Serializable{
 	}
 	
 
-	public ComplaintDTO(Integer id, String protocol, Themes themes, String cEP, String status, String descricao,
+	public ComplaintDTO(Integer id, Themes themes, String cEP, String status, String descricao,
 			Integer numero, String endereco, Date dataEnvio, Date dataFim,User user, String imageUrl) {
 		super();
 		this.id = id;
-		this.protocol = protocol;
 		this.themes = themes;
 		this.CEP = cEP;
 		this.status = status;
@@ -53,7 +51,6 @@ public class ComplaintDTO implements Serializable{
 	public ComplaintDTO(Complaint entity) {
 		super();
 		this.id = entity.getId();
-		this.protocol = entity.getProtocol();
 		this.themes = entity.getThemes();
 		this.CEP = entity.getCEP();
 		this.status = entity.getStatus();
@@ -72,14 +69,6 @@ public class ComplaintDTO implements Serializable{
 
 	public void setId(Integer id) {
 		this.id = id;
-	}
-
-	public String getProtocol() {
-		return protocol;
-	}
-
-	public void setProtocol(String protocol) {
-		this.protocol = protocol;
 	}
 
 	public Themes getThemes() {
