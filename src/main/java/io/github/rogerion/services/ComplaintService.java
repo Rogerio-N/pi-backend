@@ -67,4 +67,20 @@ public class ComplaintService {
 		Complaint complaint = repo.findSpecificUserComplaint(userId,complaintId);
 		return complaint;
 	}
+
+	public Complaint update(
+			Complaint complaint,
+			Integer id,
+			String status
+	){
+		Optional<Complaint> complaintOptional = repo.findById(id);
+
+		if(complaintOptional.isPresent()){
+			complaint.setStatus(status);
+			return repo.save(complaint);
+		}
+
+
+		return null;
+	}
 }

@@ -6,6 +6,7 @@ import java.util.Optional;
 import io.github.rogerion.entities.Complaint;
 import io.github.rogerion.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.parameters.P;
@@ -57,5 +58,12 @@ public class ComplaintController {
 	public ResponseEntity<Complaint> findComplaintByUserId(@RequestParam (name="user_id") String idUser,@RequestParam ("complaint_id") String idComplaint){
 		return ResponseEntity.ok().body(service.findSpecificUserComplaint(idUser,idComplaint));
 	}
-	
+
+	@PutMapping(value = "update/")
+	public ResponseEntity<?> updateComplaintStatus(
+			@RequestBody Complaint complaint,
+			@RequestParam Integer id,
+			@Param(value = "status") String status){
+		return ResponseEntity.ok().body(service.update(complaint, id, status));
+	}
 }
