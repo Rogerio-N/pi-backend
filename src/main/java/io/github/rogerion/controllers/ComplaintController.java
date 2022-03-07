@@ -6,6 +6,8 @@ import java.util.Optional;
 import io.github.rogerion.entities.Complaint;
 import io.github.rogerion.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
@@ -37,8 +39,14 @@ public class ComplaintController {
 	}
 
 	@GetMapping(value = "find/")
-	public ResponseEntity<Optional<Complaint>> findByComplaintId(@RequestParam Integer id){
-		return ResponseEntity.ok().body(service.findById(id));
+	public ResponseEntity findByComplaintId(@RequestParam Integer id){
+		Optional<Complaint> haveFoundComplaint = service.findById(id);
+		System.out.println("complaint: " + haveFoundComplaint.isPresent());
+		if(haveFoundComplaint.isPresent()){
+			return ResponseEntity.ok().body(haveFoundComplaint);
+		}else {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Nenhuma denuncia encontrada");
+		}
 	}
 
 	@GetMapping(value="find/userComplaint")
@@ -50,5 +58,12 @@ public class ComplaintController {
 	public ResponseEntity<Complaint> findComplaintByUserId(@RequestParam (name="user_id") String idUser,@RequestParam ("complaint_id") String idComplaint){
 		return ResponseEntity.ok().body(service.findSpecificUserComplaint(idUser,idComplaint));
 	}
-	
+
+	@PutMapping(value = "update/")
+	public ResponseEntity<?> updateComplaintStatus(
+			@RequestBody Complaint complaint,
+			@RequestParam Integer id,
+			@Param(value = "status") String status){
+		return ResponseEntity.ok().body(service.update(complaint, id, status));
+	}
 }

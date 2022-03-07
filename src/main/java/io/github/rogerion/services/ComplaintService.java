@@ -7,6 +7,7 @@ import java.util.Optional;
 import io.github.rogerion.entities.User;
 import io.github.rogerion.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,13 +28,13 @@ public class ComplaintService {
 		
 		List<Complaint> entityList = repo.findAll();
 		List<ComplaintDTO> dtoList = new ArrayList<ComplaintDTO>();
-		
+
 		for(int i = 0; i<entityList.size();i++) {
-			
+
 			//Converting a Entity User into a UserDTO with UserDTO constructor
 			ComplaintDTO temp = new ComplaintDTO(entityList.get(i));
 			dtoList.add(temp);
-			
+
 		}
 		
 		return dtoList;
@@ -53,7 +54,8 @@ public class ComplaintService {
 		if(complaintOptional.isPresent()){
 			return complaintOptional;
 		}
-		return null;
+
+		return Optional.empty();
 	}
 
 	public List<Complaint> findUserComplaint(String id){
@@ -64,5 +66,21 @@ public class ComplaintService {
 	public Complaint findSpecificUserComplaint(String userId, String complaintId){
 		Complaint complaint = repo.findSpecificUserComplaint(userId,complaintId);
 		return complaint;
+	}
+
+	public Complaint update(
+			Complaint complaint,
+			Integer id,
+			String status
+	){
+		Optional<Complaint> complaintOptional = repo.findById(id);
+
+		if(complaintOptional.isPresent()){
+			complaint.setStatus(status);
+			return repo.save(complaint);
+		}
+
+
+		return null;
 	}
 }
